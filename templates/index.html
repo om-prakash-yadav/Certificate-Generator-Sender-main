@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-<div class=" d-flex row justify-content-center text-center">
- <div class="card align-items-center text-center my-4 " style="width:50rem">
+<div class=" d-flex row justify-content-center text-center ">
+ <div class="card align-items-center text-center my-4 ">
+  <h4>Welcome to the certificate generator of ISTE NIT Duragpur</h4>
     <img  src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/12/google-career-certificates-61bd445f96b29-sej.png" class="card-img-top mt-2" alt="ISTE">
     <div class="card-body">
-      <h4>This website is used to create certificates and send through mail dynamically.</h4>
+     
     </div>
-    <button style="width:15rem; border:1px solid black;" type="button" class="btn btn-md shadow p-3 mb-5 bg-body rounded"> <a href="{% url 'certificate-home' %}" class="nav-link text-dark font-italic">
+    <button type="button" class="btn btn-sm shadow  mb-5 bg-warning rounded"> <a href="{% url 'certificate-home' %}" class="nav-link text-white font-italic">
       <i class="fa fa-sign-in  fa-fw"></i>
-      create certificates
+      Create Events
   </a></button>
   </div>
   

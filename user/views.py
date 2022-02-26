@@ -69,10 +69,10 @@ def resend_otp(request):
 			usr = User.objects.get(username=get_usr)
 			usr_otp = random.randint(100000, 999999)
 			UserOTP.objects.create(user = usr, otp = usr_otp)
-			mess = f"Hello {usr.first_name},\nYour OTP is {usr_otp}\nThanks!"
+			mess = f"Hello {usr.first_name},\nYour OTP is {usr_otp}\nThanks! - WebD Team"
 
 			send_mail(
-				"Welcome to ITScorer - Verify Your Email",
+				"Welcome to ISTE NIT Durgapur -Please Verify Your Email",
 				mess,
 				settings.EMAIL_HOST_USER,
 				[usr.email],
@@ -116,10 +116,10 @@ def login_view(request):
 			usr = User.objects.get(username=usrname)
 			usr_otp = random.randint(100000, 999999)
 			UserOTP.objects.create(user = usr, otp = usr_otp)
-			mess = f"Hello {usr.first_name},\nYour OTP is {usr_otp}\nThanks!"
+			mess = f"Hello {usr.first_name},\nYour OTP is {usr_otp}\nThanks! -WebD Team"
 
 			send_mail(
-				"Welcome to ITScorer - Verify Your Email",
+				"Welcome to ISTE NIT Durgapur -Please Verify Your Email",
 				mess,
 				settings.EMAIL_HOST_USER,
 				[usr.email],

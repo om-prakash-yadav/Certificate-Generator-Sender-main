@@ -5,11 +5,7 @@
       <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    {% if title %}
-      {{title}} | Certificates Generator
-    {% else %}
-      ISTE NIT DGP
-    {% endif %}
+  ISTE Certificates
   </title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
   <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
@@ -22,16 +18,19 @@
 
   {% comment %} nav bar starts here  {% endcomment %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
   <div class="container-fluid">
-        <img src="{% static 'img/logo.png' %}" alt="ISTE" width="75" class="mx-3">
-  
+    {% if not request.user.is_authenticated %}
+    <div class="mx-2">
+      <a class="navbar-brand text-uppercase">ISTE Certificates</a>
+      </div> 
+    {% endif %}
         {% if request.user.is_authenticated %}
-        <div class="mx-5">
-          <a class="navbar-brand">{{request.user.first_name}}</a>
+        <div class="mx-2">
+          <a class="navbar-brand text-uppercase"><i class="fa fa-user mx-2" aria-hidden="true"></i>{{request.user.first_name}}</a>
+          </div> 
           <p class="font-weight-light text-muted m-0"><a href="{% url 'logout' %}" class="text-decoration-none text-info">
             <i class="fa fa-sign-out"></i> Logout</a></p>
-          </div> 
         {% endif %}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -101,8 +100,7 @@
 <div class=" pt-5 pb-2  d-flex footer justify-content-center text-center bg-dark">
   <div class="container-fluid">
     <div class="row">
-      
-      <div class="col-lg-5 col-xs-12 about-company">
+       <div class="col-lg-5 col-xs-12 about-company">
         <div style="display:inline-block">
           <a class="logo" href="index.html"><img src="{% static 'img/logo.png' %}" alt="Logo" height="80" style="border-radius: 50%;"></a>
           </div>

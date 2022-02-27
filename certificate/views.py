@@ -4,9 +4,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from certificate.reupload import reupload
+
 from .models import Event, Participant
 import pandas as pd
-from .convter import ppt2pdf
+from .upload import  upload
 from pptx import Presentation
 from django.core.mail import send_mail, EmailMessage
 import requests
@@ -77,23 +80,16 @@ def track(request, id, slug):
 		df=pd.read_csv(event.csv_file)
 		df_len=df.shape
 		i=0
+	
+		
 
-		data = {
-        	"client_id":"612409723657-7juhrpm4504lce6kerns2i92qc1sgfek.apps.googleusercontent.com",
-        	"client_secret":"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",
-        	"refresh_token": "1//04GBPw8hk8-JrCgYIARAAGAQSNwF-L9IrTUL1QwRAT4Sz6eRV2x82lqJ36kuQggc7USoUnhgpMQ82S2MRrWx0g48mO4JPcNUUnSs",
-        	'grant_type': 'refresh_token'
-            }
-		a = requests.post("https://www.googleapis.com/oauth2/v4/token", data)
-		token = f"Bearer {dict(a.json()).get('access_token')}"
+
+
 		li=["First","Second","Third"]
 		while i < df_len[0]:
 			prs = Presentation(event.template)
-			j=""
-			if i<9:
-				j="00"
-			elif i>=9 and i < 99 :
-				j="0"
+			s_name = df.loc[i,event.email_column].split('@')[0]
+			c_id=upload(s_name,"sample.pptx")
 			
 			for tag, v_type, value in values:
 				for slide in prs.slides:
@@ -111,16 +107,14 @@ def track(request, id, slug):
 											elif v_type == 'csv':
 												new_text = cur_text.replace(tag, df.loc[i,value])
 											elif v_type == "auto":
-												new_text = cur_text.replace(tag, value+"/"+j+str(i+1))
+												new_text = cur_text.replace(tag,c_id)
 											else:
 												pass
 											run.text = new_text
 											
-			
-			s_name = df.loc[i,event.email_column].split('@')[0]
 			prs.save(s_name+".pptx")
-			f_id = ppt2pdf(s_name+".pptx",s_name, token)
-			url ="https://docs.google.com/presentation/d/"+f_id+"/export/pdf"
+			reupload(c_id,s_name+".pptx")
+			url ="https://docs.google.com/presentation/d/"+c_id+"/export/pdf"
 			f=requests.get(url,allow_redirects=True)
 			open("certificate.pdf", 'wb').write(f.content)
 

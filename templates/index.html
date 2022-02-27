@@ -2,21 +2,37 @@
 {% load static %}
 {% block body %}
 <div class=" d-flex row justify-content-center text-center ">
- <div class="card align-items-center text-center my-4 ">
-  <h4>Welcome to the certificate generator of ISTE NIT Duragpur</h4>
+ <div style=" width:50rem; " class="card align-items-center text-center my-4 ">
+  <h1>Welcome  To ISTE NIT Duragpur</h1>
     <img  src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/12/google-career-certificates-61bd445f96b29-sej.png" class="card-img-top mt-2" alt="ISTE">
     <div class="card-body">
      
     </div>
-    <button type="button" class="btn btn-sm shadow  mb-5 bg-warning rounded"> <a href="{% url 'certificate-home' %}" class="nav-link text-white font-italic">
+    <div>
+      <span class="input-group-text" id="addon-wrapping">Certificate ID :</span>
+      <input type="text" class="form-control" placeholder="paste here .." aria-label="certificate id" id="c_id" aria-describedby="addon-wrapping">
+    </div>
+    <button onclick={submit()} type="button" class="btn btn-sm shadow  m-5 p-3  rounded fw-bold text-white" style="background:#00FF00;" download> 
       <i class="fa fa-sign-in  fa-fw"></i>
-      Create Events
-  </a></button>
+      verify Certificate
+  </button>
   </div>
   
 </div>
 
+<script>
+  
+   
+   
 
+   function submit () {
+    var val = document.getElementById('c_id').value;
+    durl="https://docs.google.com/presentation/d/"+val+"/export/pdf";
+
+    window.location=durl;
+  };
+  
+</script>
    
 
 

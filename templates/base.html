@@ -43,6 +43,7 @@
             Home
         </a>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item mx-3">
           <a href="{% url 'view_certificate_status' %}" class="nav-link text-light font-italic">
             <i class="fa fa-calendar  text-info fa-fw "></i>
@@ -55,7 +56,7 @@
             Issue Certificate
         </a>
         </li>
-
+        {% endif %}
         {% if not request.user.is_authenticated %}
         <li class="nav-item mx-3">
           <a href="{% url 'login' %}" class="nav-link text-light font-italic">

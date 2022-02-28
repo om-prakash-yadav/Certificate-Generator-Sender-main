@@ -14,6 +14,25 @@ from pptx import Presentation
 from django.core.mail import send_mail, EmailMessage
 import requests
 import os
+import webbrowser
+
+
+def verify(request):
+	if request.method=='POST':
+		certId=request.POST.get('cert_id')
+		url ="https://docs.google.com/presentation/d/"+certId+"/export/pdf"
+		if os.path.exists("mycertificate.pdf"):
+			os.remove("mycertificate.pdf")
+		x = requests.head(url,allow_redirects=True)
+		if x.headers.get('Content-Type')=="application/pdf":
+			f=requests.get(url,allow_redirects=True)
+			open("mycertificate.pdf",'wb').write(f.content)
+			webbrowser.open_new_tab("mycertificate.pdf")
+		else:
+			return render(request,"invalid.html")
+		return redirect("/")
+	else:
+		return redirect("/")
 
 def index(request):
 	return render(request, 'index.html')
@@ -150,3 +169,6 @@ def view_certificate_status(request):
 	return render(request, 'certificate/view_certificate_status.html',{
 		'events': Event.objects.filter(user=request.user)
 		})
+
+
+

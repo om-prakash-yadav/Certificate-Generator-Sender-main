@@ -9,30 +9,20 @@
      
     </div>
     <div>
+      <form method="POST" action="verify/">
+        {% csrf_token %}
       <span class="input-group-text" id="addon-wrapping">Certificate ID :</span>
-      <input type="text" class="form-control" placeholder="paste here .." aria-label="certificate id" id="c_id" aria-describedby="addon-wrapping">
+      <input type="text" class="form-control" placeholder="paste here .." aria-label="certificate id" name="cert_id" aria-describedby="addon-wrapping">
     </div>
-    <button onclick={submit()} type="button" class="btn btn-sm shadow  m-5 p-3  rounded fw-bold text-white" style="background:#00FF00;" download> 
+    <button type="submit" class="btn btn-sm shadow  m-5 p-3  rounded fw-bold text-white" style="background:#00FF00;"> 
       <i class="fa fa-sign-in  fa-fw"></i>
       verify Certificate
   </button>
+</form>
   </div>
   
 </div>
 
-<script>
-  
-   
-   
-
-   function submit () {
-    var val = document.getElementById('c_id').value;
-    durl="https://docs.google.com/presentation/d/"+val+"/export/pdf";
-
-    window.location=durl;
-  };
-  
-</script>
    
 
 

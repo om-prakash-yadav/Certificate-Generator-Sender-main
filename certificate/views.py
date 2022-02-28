@@ -27,10 +27,12 @@ def verify(request):
 		if x.headers.get('Content-Type')=="application/pdf":
 			f=requests.get(url,allow_redirects=True)
 			open("mycertificate.pdf",'wb').write(f.content)
-			webbrowser.open_new_tab("mycertificate.pdf")
+			with open("mycertificate.pdf", 'rb') as fh:
+				response = HttpResponse(fh.read(), content_type="application/pdf")
+				response['Content-Disposition'] = 'inline; filename=' + os.path.basename("mycertificate.pdf")
+				return response
 		else:
 			return render(request,"invalid.html")
-		return redirect("/")
 	else:
 		return redirect("/")
 
